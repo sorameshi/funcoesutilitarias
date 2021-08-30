@@ -41,11 +41,11 @@ def init():
             return o.__str__()
 
     print("Carregando produtos...")
-    query_produtos_ativos = query_db("SELECT p.id, p.nome, Count(p.*) as quantidade, p.codigo as sku, m.nome as marca from produto_valor pv left join produto p on (p.id = pv.idproduto) left join lojista l on (pv.idlojista = l.id) left join marca m on (p.idmarca = m.id) where p.removido = false and pv.removido = false and pv.idproduto is not null and p.ativo = true and l.removido = false and p.nomeurl is not null GROUP BY p.id, p.nome, p.codigo, m.nome HAVING Count(*) > 1 order by p.nome asc")    
-    ids_produtos=[]
-    print('Populando a lista de ids das categorias principais!')
-    for item in query_produtos_ativos:
-        ids_produtos.append(item["id"])
+    query_produtos_ativos = query_db("SELECT count(*), state FROM pg_stat_activity GROUP BY 2")    
+    # ids_produtos=[]
+    # print('Populando a lista de ids das categorias principais!')
+    # for item in query_produtos_ativos:
+    #     ids_produtos.append(item["id"])
         
     print('Concluindo sitemap.txt')
     urls = query_produtos_ativos
