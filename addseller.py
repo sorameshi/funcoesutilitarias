@@ -16,7 +16,7 @@ def init():
     user = os.environ["JDBC_USER"]
     password = os.environ["JDBC_PASS"]
         
-    
+    print("ola");
     # DOMAIN = os.environ["DOMAIN"]
 
     sslmode = "require"
